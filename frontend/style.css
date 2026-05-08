@@ -1,0 +1,201 @@
+/* frontend/style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 30px 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.header p {
+    opacity: 0.85;
+    font-size: 1rem;
+}
+
+/* Cards */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.card label {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+/* Textarea */
+textarea {
+    width: 100%;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 0.95rem;
+    resize: vertical;
+    font-family: inherit;
+    transition: border 0.2s;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #667eea;
+}
+
+.word-count {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 8px;
+}
+
+/* Options */
+.options {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.option-group {
+    flex: 1;
+}
+
+.option-group select,
+.option-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.option-group select:focus,
+.option-group input:focus {
+    border-color: #667eea;
+}
+
+/* Button */
+#summarizeBtn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+#summarizeBtn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+#summarizeBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Loading */
+#loading {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.spinner {
+    width: 45px;
+    height: 45px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error */
+.error {
+    background: #fff5f5;
+    border: 1px solid #fc8181;
+    color: #c53030;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+/* Summary Box */
+.summary-box {
+    background: #f8f9ff;
+    border-left: 4px solid #667eea;
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    line-height: 1.7;
+    color: #333;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+/* Stats */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    text-align: center;
+}
+
+.stat {
+    background: #f8f9ff;
+    padding: 14px;
+    border-radius: 8px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 4px;
+    display: block;
+}

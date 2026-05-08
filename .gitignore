@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.bin
+*.pt
+*.safetensors
+huggingface_cache/
+*.log
+.git/

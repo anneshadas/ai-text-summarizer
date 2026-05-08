@@ -1,13 +1,12 @@
 # backend/services/extractive.py
 import sys
 import os
-import torch
 import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from models.model_loader import ModelLoader
 from services.preprocessor import TextPreprocessor
 from config import Config
 
@@ -17,27 +16,22 @@ class ExtractiveSummarizer:
         self.preprocessor = TextPreprocessor()
 
     def get_embeddings(self, sentences: list) -> np.ndarray:
-        tokenizer, model = ModelLoader.get_extractive_model()
-        embeddings = []
-
-        for sentence in sentences:
-            inputs = tokenizer(
-                sentence,
-                return_tensors="pt",
-                max_length=512,
-                truncation=True,
-                padding=True
-            )
-            with torch.no_grad():
-                outputs = model(**inputs)
-
-            embedding = outputs.last_hidden_state.mean(dim=1)
-            embedding = embedding.squeeze().numpy()
-            embeddings.append(embedding)
-
-        return np.array(embeddings)
+        """
+        Converts sentences to TF-IDF vectors locally
+        Fast, no API needed ✅
+        """
+        vectorizer = TfidfVectorizer(stop_words='english')
+        
+        try:
+            tfidf_matrix = vectorizer.fit_transform(sentences)
+            return tfidf_matrix.toarray()
+        except Exception as e:
+            raise Exception(f"TF-IDF Error: {str(e)}")
 
     def score_sentences(self, embeddings: np.ndarray) -> np.ndarray:
+        """
+        Scores sentences by cosine similarity
+        """
         similarity_matrix = cosine_similarity(embeddings)
         scores = similarity_matrix.mean(axis=1)
         return scores
@@ -54,11 +48,13 @@ class ExtractiveSummarizer:
         # Step 2: Split into sentences
         sentences = self.preprocessor.split_sentences(clean_text)
 
+        print(f"Total sentences: {len(sentences)}")
+
         if len(sentences) <= num_sentences:
             num_sentences = len(sentences)
 
-        # Step 3: Get BERT embeddings
-        print("Getting BERT embeddings...")
+        # Step 3: Get TF-IDF embeddings
+        print("Computing TF-IDF embeddings locally...")
         embeddings = self.get_embeddings(sentences)
 
         # Step 4: Score sentences

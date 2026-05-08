@@ -1,14 +1,17 @@
 # backend/config.py
-# ================================================
-# CONFIGURATION FILE
-# All settings for the entire project in one place
-# ================================================
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Config:
 
-    # ── Model Settings ──────────────────────────
-    ABSTRACTIVE_MODEL = "sshleifer/distilbart-cnn-12-6"
-    EXTRACTIVE_MODEL = "bert-base-uncased"
+    # ── HuggingFace API ──────────────────────────
+    HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+
+    # CORRECT API URLs
+    HF_ABSTRACTIVE_URL = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-cnn"
+    HF_EXTRACTIVE_URL = "https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2"
 
     # ── Summary Length Settings ──────────────────
     ABSTRACTIVE_MAX_LENGTH = 150
